@@ -17,7 +17,7 @@ const StudentsSchema = new Schema({
     email : {
         type : String, 
         required : [true, "Lütfen emailinizi giriniz"],
-        unique : [true, "Bu email daha önce kullanılmış"],
+        unique : true,
         match : [emailRegex, "Lütfen geçerli bir email giriniz."]
     },
 
