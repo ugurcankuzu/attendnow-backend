@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const emailRegex =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const bcrypt = require("bcryptjs");
-const StudentsSchema = new Schema({
+const LecturerSchema = new Schema({
   name: {
     type: String,
     required: [true, "Lütfen isminizi giriniz"],
@@ -27,17 +27,18 @@ const StudentsSchema = new Schema({
     required: [true, "Lütfen şifrenizi belirleyiniz."],
     select: false,
   },
-
-  deviceinfo: {
-    type: String,
+  courses: {
+    type: Array,
+  },
+  sessions: {
+    type: Array,
   },
 });
 
-
-StudentsSchema.pre("save", async function (next) {
+LecturerSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(this.password, salt);
   this.password = hash;
   next();
 });
-module.exports = mongoose.model("Student", StudentsSchema);
+module.exports = mongoose.model("Lecturer", LecturerSchema);
