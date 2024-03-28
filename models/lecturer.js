@@ -29,9 +29,16 @@ const LecturerSchema = new Schema({
   },
   courses: {
     type: Array,
+    ref: "Course",
   },
   sessions: {
     type: Array,
+    ref: "Session",
+  },
+  activeSession: {
+    type: mongoose.Types.ObjectId,
+    ref: "Session",
+    default: null,
   },
 });
 
